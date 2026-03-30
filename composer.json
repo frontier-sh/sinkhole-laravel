@@ -1,0 +1,23 @@
+{
+  "name": "frontier/sinkhole",
+  "description": "Laravel mail transport for Sinkhole — a Cloudflare Worker email trap",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": "^8.1",
+    "laravel/framework": "^10.0|^11.0|^12.0",
+    "symfony/mailer": "^6.0|^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Frontier\\Sinkhole\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Frontier\\Sinkhole\\SinkholeServiceProvider"
+      ]
+    }
+  }
+}
