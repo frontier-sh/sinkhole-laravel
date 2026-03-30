@@ -2,6 +2,8 @@
 
 namespace Frontier\Sinkhole;
 
+use Illuminate\Http\Client\ConnectionException;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mailer\Transport\AbstractTransport;
@@ -52,9 +54,19 @@ class SinkholeTransport extends AbstractTransport
             $payload['attachments'] = $attachments;
         }
 
-        $response = Http::timeout(5)
-            ->withHeader('X-API-Key', $this->apiKey)
-            ->post($this->endpoint . '/ingest', $payload);
+        try {
+            $response = Http::timeout(5)
+                ->withHeader('X-API-Key', $this->apiKey)
+                ->post($this->endpoint . '/ingest', $payload);
+        } catch (ConnectionException $e) {
+            throw new TransportException(
+                "Sinkhole: could not connect to {$this->endpoint} - " . $e->getMessage(),
+            );
+        } catch (RequestException $e) {
+            throw new TransportException(
+                "Sinkhole: request to {$this->endpoint} failed - " . $e->getMessage(),
+            );
+        }
 
         if (! $response->successful()) {
             throw new TransportException(
@@ -70,7 +82,7 @@ class SinkholeTransport extends AbstractTransport
     {
         return implode(', ', array_map(function (Address $address) {
             if ($address->getName()) {
-                return "{$address->getName()} <{$address->getAddress()}>";
+                return "{$address->getName()} <{$address->getAddress()}>" ;
             }
             return $address->getAddress();
         }, $addresses));

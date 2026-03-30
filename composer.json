@@ -1,12 +1,20 @@
 {
-  "name": "frontier/sinkhole",
+  "name": "frontier-sh/sinkhole",
   "description": "Laravel mail transport for Sinkhole — a Cloudflare Worker email trap",
+  "keywords": ["laravel", "mail", "email", "transport", "staging", "development", "sinkhole"],
   "type": "library",
   "license": "MIT",
+  "homepage": "https://github.com/frontier-sh/sinkhole-laravel",
+  "authors": [
+    {
+      "name": "Marc Fowler",
+      "email": "marc@frontier.sh"
+    }
+  ],
   "require": {
     "php": "^8.1",
-    "laravel/framework": "^10.0|^11.0|^12.0",
-    "symfony/mailer": "^6.0|^7.0"
+    "illuminate/mail": "^10.0|^11.0|^12.0",
+    "illuminate/support": "^10.0|^11.0|^12.0"
   },
   "autoload": {
     "psr-4": {
