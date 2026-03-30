@@ -1,5 +1,5 @@
 {
-  "name": "frontier-sh/sinkhole",
+  "name": "frontier-sh/sinkhole-laravel",
   "description": "Laravel mail transport for Sinkhole — a Cloudflare Worker email trap",
   "keywords": ["laravel", "mail", "email", "transport", "staging", "development", "sinkhole"],
   "type": "library",
